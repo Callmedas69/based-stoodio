@@ -1,0 +1,150 @@
+@font-face {
+  font-family: 'Doodles';
+  src: url('https://callmedas69.github.io/based-stoodio/static/font/doodles.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: 'Doodles', sans-serif;
+  background-color: rgb(255, 255, 255);
+  color: #333;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+header {
+  text-align: center;
+  padding: 0.5rem;
+  background-color: rgb(255, 255, 255);
+  color: #fff;
+  width: 100%;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  height: 100px;
+}
+
+header h1 {
+  margin: 0.5rem 0;
+  font-size: 3rem;
+  color: #000000;
+}
+
+header h2 {
+  margin: 0.1rem 0;
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: #3700ff;
+}
+
+main {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+#meme-canvas {
+  border: 1px solid rgb(233, 159, 1);
+  width: 75%;
+  height: auto;
+}
+
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.button {
+  display: inline-block;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #bbff00;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.upload-container input[type="file"] {
+  display: none;
+}
+
+.sliders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.sliders label {
+  margin: 0.5rem 0;
+  color: #727272;
+  font-size: small;
+}
+
+.sliders input[type="range"] {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 1rem;
+  height: 10px; /* Increased slider height */
+}
+
+@media (max-width: 600px) {
+  .header-content {
+    flex-direction: column;
+  }
+
+  .logo {
+    margin-bottom: 1rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .sliders input[type="range"] {
+    width: 80%;
+  }
+}
