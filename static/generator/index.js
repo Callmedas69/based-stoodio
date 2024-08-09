@@ -21,9 +21,8 @@ document.getElementById("delete-nogs-button").addEventListener("click", deleteLa
 document.getElementById("reset-button").addEventListener("click", resetCanvas);
 document.getElementById("download-button").addEventListener("click", downloadCanvas);
 
-
-document.getElementById("resize-slider").addEventListener("input", (e) => debounce(resizeElements, 50)(e, nogs));
-document.getElementById("rotate-slider").addEventListener("input", (e) => debounce(rotateElements, 50)(e, nogs));
+document.getElementById("resize-slider").addEventListener("input", resizeElements);
+document.getElementById("rotate-slider").addEventListener("input", rotateElements);
 document.getElementById("color-slider").addEventListener("input", changeColor);
 
 canvas.addEventListener("mousedown", handleMouseDown);
