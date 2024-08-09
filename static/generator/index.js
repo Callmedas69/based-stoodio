@@ -1,7 +1,5 @@
 const canvas = document.getElementById("meme-canvas");
 const ctx = canvas.getContext("2d", { willReadFrequently: true });
-const nogsImageTemplate = createImage("./nogs.png");
-
 const IMAGE_SCALE = 0.8; // Resize uploaded image to 80%
 const ELEMENT_SCALE = 0.6; // Constant scale for elements
 
@@ -18,17 +16,17 @@ canvas.height = 400;
 
 // Event Listeners
 document.getElementById("image-upload").addEventListener("change", handleImageUpload);
-document.getElementById("add-nogs-button").addEventListener("click", () => addElement(nogsImageTemplate, nogs));
-document.getElementById("delete-nogs-button").addEventListener("click", () => deleteLastElement(nogs));
+document.getElementById("add-nogs-button").addEventListener("click", () => addElement("./nogs.svg"));
+document.getElementById("delete-nogs-button").addEventListener("click", deleteLastElement);
 document.getElementById("reset-button").addEventListener("click", resetCanvas);
 document.getElementById("download-button").addEventListener("click", downloadCanvas);
 
 // Debounced event listeners
-document.getElementById("resize-slider").addEventListener("input", debounce((e) => resizeElements(e, nogs), 200));
-document.getElementById("rotate-slider").addEventListener("input", debounce((e) => rotateElements(e, nogs), 200));
+document.getElementById("resize-slider").addEventListener("input", debounce(resizeElements, 200));
+document.getElementById("rotate-slider").addEventListener("input", debounce(rotateElements, 200));
 
 // Color slider without debouncing
-document.getElementById("color-slider").addEventListener("input", (e) => changeColor(e));
+document.getElementById("color-slider").addEventListener("input", changeColor);
 
 canvas.addEventListener("mousedown", handleMouseDown);
 canvas.addEventListener("mousemove", handleMouseMove);
@@ -37,11 +35,15 @@ canvas.addEventListener("touchstart", handleTouchStart, { passive: false });
 canvas.addEventListener("touchmove", handleTouchMove, { passive: false });
 canvas.addEventListener("touchend", handleTouchEnd);
 
-function createImage(src) {
+function createImage(src, callback) {
     const img = new Image();
     img.src = src;
     img.crossOrigin = "anonymous";
-    return img;
+    img.onload = () => {
+        console.log(`SVG loaded from ${src}`); // Debugging line
+        callback(img);
+    };
+    img.onerror = () => console.error(`Failed to load image: ${src}`);
 }
 
 function handleImageUpload(e) {
@@ -72,7 +74,6 @@ function displayButtonContainer() {
 function adjustCanvasSize(image) {
     const aspectRatio = image.width / image.height;
     
-    // Set canvas dimensions
     if (aspectRatio > 1) { // Image is wider than tall
         canvas.width = 400;
         canvas.height = 400 / aspectRatio;
@@ -88,23 +89,25 @@ function drawCanvasImage(src) {
     drawCanvas();
 }
 
-function addElement(template, elementsArray) {
-    const element = {
-        image: template,
-        width: template.width * ELEMENT_SCALE, // Constant scale for elements
-        height: template.height * ELEMENT_SCALE, // Constant scale for elements
-        x: canvas.width / 2 - (template.width * ELEMENT_SCALE) / 2,
-        y: canvas.height / 2 - (template.height * ELEMENT_SCALE) / 2,
-        rotation: 0,
-        color: 'white' // Default color
-    };
-    elementsArray.push(element);
-    drawCanvas();
+function addElement(src) {
+    createImage(src, (template) => {
+        const element = {
+            image: template,
+            width: template.width * ELEMENT_SCALE,
+            height: template.height * ELEMENT_SCALE,
+            x: canvas.width / 2 - (template.width * ELEMENT_SCALE) / 2,
+            y: canvas.height / 2 - (template.height * ELEMENT_SCALE) / 2,
+            rotation: 0,
+            color: 'white' // Default color
+        };
+        nogs.push(element);
+        drawCanvas();
+    });
 }
 
-function resizeElements(e, elementsArray) {
+function resizeElements(e) {
     const scale = e.target.value;
-    elementsArray.forEach(element => {
+    nogs.forEach(element => {
         const centerX = element.x + element.width / 2;
         const centerY = element.y + element.height / 2;
         element.width = element.image.width * scale;
@@ -115,9 +118,9 @@ function resizeElements(e, elementsArray) {
     drawCanvas();
 }
 
-function rotateElements(e, elementsArray) {
+function rotateElements(e) {
     const rotation = (e.target.value * Math.PI) / 180;
-    elementsArray.forEach(element => {
+    nogs.forEach(element => {
         element.rotation = rotation;
     });
     drawCanvas();
@@ -128,8 +131,8 @@ function changeColor(e) {
     drawCanvas();
 }
 
-function deleteLastElement(elementsArray) {
-    elementsArray.pop();
+function deleteLastElement() {
+    nogs.pop();
     drawCanvas();
 }
 
