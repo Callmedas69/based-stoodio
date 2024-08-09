@@ -131,6 +131,82 @@ main {
   height: 10px; /* Increased slider height */
 }
 
+#color-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(to right, 
+      red, orange, yellow, green, cyan, blue, violet, red);
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for 3D effect */
+  transform: perspective(5px) translateZ(1px); /* Perspective for 3D effect */
+}
+
+#color-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #000;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow for 3D effect */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+#color-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #000;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow for 3D effect */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+footer {
+  background-color: #f8f8f8;
+  padding: 1rem;
+  width: 100%;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  font-size: smaller;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-info, .social-media, .legal-info {
+  margin: 0.5rem 0;
+}
+
+.social-media a {
+  margin: 0 0.5rem;
+  text-decoration: none;
+  color: #000;
+}
+
+.social-media a:hover {
+  color: #3700ff;
+}
+
+.legal-info a {
+  margin: 0 0.5rem;
+  text-decoration: none;
+  color: #727272;
+}
+
+.legal-info a:hover {
+  color: #000;
+}
+
 @media (max-width: 600px) {
   .header-content {
     flex-direction: column;
