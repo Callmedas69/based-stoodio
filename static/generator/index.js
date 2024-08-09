@@ -21,11 +21,9 @@ document.getElementById("delete-nogs-button").addEventListener("click", deleteLa
 document.getElementById("reset-button").addEventListener("click", resetCanvas);
 document.getElementById("download-button").addEventListener("click", downloadCanvas);
 
-// Debounced event listeners
-document.getElementById("resize-slider").addEventListener("input", debounce(resizeElements, 200));
-document.getElementById("rotate-slider").addEventListener("input", debounce(rotateElements, 200));
 
-// Color slider without debouncing
+document.getElementById("resize-slider").addEventListener("input", resizeElements);
+document.getElementById("rotate-slider").addEventListener("input", rotateElements);
 document.getElementById("color-slider").addEventListener("input", changeColor);
 
 canvas.addEventListener("mousedown", handleMouseDown);
